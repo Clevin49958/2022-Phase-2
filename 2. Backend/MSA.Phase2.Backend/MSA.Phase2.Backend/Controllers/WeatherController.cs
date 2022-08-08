@@ -21,9 +21,9 @@ namespace MSA.Phase2.Backend.Controllers
             this.configuration = configuration;
         }
         /// <summary>
-        /// Gets the raw JSON for the hot feed in reddit
+        /// Get weather data for all subscribed locations
         /// </summary>
-        /// <returns>A JSON object representing the hot feed in reddit</returns>
+        /// <returns>A JSON object with location name as key and json weather data in string as value</returns>
         [HttpGet]
         [ProducesResponseType(200)]
         public async Task<IActionResult> GetAllWeather()
