@@ -13,7 +13,7 @@ builder.Services.AddSwaggerGen(options =>
     options.SwaggerDoc("v1", new OpenApiInfo
     {
         Version = "v1",
-        Title = "My Amazing API"
+        Title = "My Weather API"
     });
 
     var xmlFilename = $"{Assembly.GetExecutingAssembly().GetName().Name}.xml";
@@ -23,6 +23,10 @@ builder.Services.AddSwaggerGen(options =>
 builder.Services.AddHttpClient("reddit", configureClient: client =>
 {
     client.BaseAddress = new Uri("https://www.reddit.com/dev/api");
+});
+builder.Services.AddHttpClient("weather", configureClient: client =>
+{
+    client.BaseAddress = new Uri("https://api.openweathermap.org/data/3.0/onecall");
 });
 
 var app = builder.Build();
