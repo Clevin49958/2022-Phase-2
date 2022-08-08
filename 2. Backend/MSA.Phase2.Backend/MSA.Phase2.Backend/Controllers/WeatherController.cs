@@ -30,9 +30,15 @@ namespace MSA.Phase2.Backend.Controllers
             // List<Task<HttpResponseMessage>> results = new List<Task<HttpResponseMessage>>();
 
             var results = await Task.WhenAll(locations.Select(location =>
-            _client.GetAsync($"/data/3.0/onecall?lat={location.Lat}&lon={location.Lng}&appid=xxx")));
+            _client.GetAsync($"/data/2.5/weather?lat={location.Lat}&lon={location.Lng}&appid=xxx")));
             var contents = await Task.WhenAll(results.Select(res => res.Content.ReadAsStringAsync()));
-            return Ok(contents);
+
+            Dictionary<string, string> content = new Dictionary<string, string>();
+            for (int i = 0; i < locations.Count; i++)
+            {
+                content.Add(locations[i].Name, contents[i]);
+            }
+            return Ok(content);
         }
     }
 }
