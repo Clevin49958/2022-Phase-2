@@ -20,10 +20,6 @@ builder.Services.AddSwaggerGen(options =>
     options.IncludeXmlComments(Path.Combine(AppContext.BaseDirectory, xmlFilename));
 });
 
-builder.Services.AddHttpClient("reddit", configureClient: client =>
-{
-    client.BaseAddress = new Uri("https://www.reddit.com/dev/api");
-});
 builder.Services.AddHttpClient("weather", configureClient: client =>
 {
     client.BaseAddress = new Uri("https://api.openweathermap.org/data/3.0/onecall");
