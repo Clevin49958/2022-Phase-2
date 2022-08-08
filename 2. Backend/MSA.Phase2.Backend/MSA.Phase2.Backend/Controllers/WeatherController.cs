@@ -9,14 +9,16 @@ namespace MSA.Phase2.Backend.Controllers
     public class WeatherController : ControllerBase
     {
         private readonly HttpClient _client;
+        private readonly IConfiguration configuration;
         /// <summary />
-        public WeatherController(IHttpClientFactory clientFactory)
+        public WeatherController(IHttpClientFactory clientFactory, IConfiguration configuration)
         {
             if (clientFactory is null)
             {
                 throw new ArgumentNullException(nameof(clientFactory));
             }
             _client = clientFactory.CreateClient("weather");
+            this.configuration = configuration;
         }
         /// <summary>
         /// Gets the raw JSON for the hot feed in reddit
@@ -30,7 +32,7 @@ namespace MSA.Phase2.Backend.Controllers
             // List<Task<HttpResponseMessage>> results = new List<Task<HttpResponseMessage>>();
 
             var results = await Task.WhenAll(locations.Select(location =>
-            _client.GetAsync($"/data/2.5/weather?lat={location.Lat}&lon={location.Lng}&appid=xxx")));
+            _client.GetAsync($"/data/2.5/weather?lat={location.Lat}&lon={location.Lng}&appid={this.configuration["WEATHER_API_KEY"]}&units={this.configuration["Units"]}")));
             var contents = await Task.WhenAll(results.Select(res => res.Content.ReadAsStringAsync()));
 
             Dictionary<string, string> content = new Dictionary<string, string>();

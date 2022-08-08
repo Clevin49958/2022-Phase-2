@@ -1,5 +1,10 @@
 using Microsoft.OpenApi.Models;
+using MSA.Phase2.Backend;
 using System.Reflection;
+
+var root = Directory.GetCurrentDirectory();
+var dotenv = Path.Combine(root, ".env");
+DotEnv.Load(dotenv);
 
 var builder = WebApplication.CreateBuilder(args);
 
