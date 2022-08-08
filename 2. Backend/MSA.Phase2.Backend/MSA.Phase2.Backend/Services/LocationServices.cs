@@ -13,8 +13,8 @@ namespace MSA.Phase2.Backend.Services
                     new Location
                     {
                         Name = "University of Auckland",
-                        Lat = -36.85219183400027,
-                        Lng = 174.76913948480936
+                        Lat = -36.8,
+                        Lng = 174.7
                         }
                         },
                 {
@@ -22,8 +22,8 @@ namespace MSA.Phase2.Backend.Services
                     new Location
                     {
                         Name="Hamilton",
-                        Lat = -37.79353652390541,
-                        Lng = 175.28538457585492
+                        Lat = -37.7,
+                        Lng = 175.2
                     }
                 },
             };
