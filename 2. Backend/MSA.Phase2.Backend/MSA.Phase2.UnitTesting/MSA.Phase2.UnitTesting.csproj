@@ -16,4 +16,8 @@
     <PackageReference Include="coverlet.collector" Version="3.1.2" />
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\MSA.Phase2.Backend\MSA.Phase2.Backend.csproj" />
+  </ItemGroup>
+
 </Project>
