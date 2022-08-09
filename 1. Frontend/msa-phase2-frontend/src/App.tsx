@@ -1,7 +1,10 @@
+import { IconButton, TextField } from '@mui/material';
+import SearchIcon from "@mui/icons-material/Search";
 import axios from 'axios';
 import { CurrentResponse } from 'openweathermap-ts/dist/types';
 import React, { useState } from 'react';
 import './App.css';
+import { useEffect } from 'react';
 
 const WEATHER_BASE_URL = "https://api.openweathermap.org/data/2.5/weather?q="
 
@@ -24,17 +27,29 @@ function App() {
   };
 
   return (
-    <div>
-      <h1>
+    <div className="container d-flex flex-column">
+      <h1 style={{textAlign: "center"}}>
         Weather Search
       </h1>
-      
       <div>
-        <label>City Name</label><br/>
-        <input type="text" id="city-name" name="city-name" onChange={e => setInput(e.target.value)}/><br/>
-        <button type="submit" onClick={search}>
-        Search
-        </button>
+        <TextField
+          id="search-bar"
+          className="text"
+          value={input}
+          onChange={(prop: any) => {
+            setInput(prop.target.value);
+          }}
+          label="Enter a city Name..."
+          variant="outlined"
+          placeholder="Search... maybe Auckland?"
+          size="small"
+        />
+        <IconButton
+          aria-label="search"
+          onClick={search}
+        >
+          <SearchIcon style={{ fill: "blue" }} />
+        </IconButton>
       </div>
       {weather === undefined ? 
         (searched ? 
