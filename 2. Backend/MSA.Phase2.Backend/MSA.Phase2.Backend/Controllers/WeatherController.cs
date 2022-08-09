@@ -29,10 +29,10 @@ namespace MSA.Phase2.Backend.Controllers
         public async Task<IActionResult> GetAllWeather()
         {
             List<Location> locations = LocationService.GetAll();
-            // List<Task<HttpResponseMessage>> results = new List<Task<HttpResponseMessage>>();
 
             var results = await Task.WhenAll(locations.Select(location =>
-            _client.GetAsync($"/data/2.5/weather?lat={location.Lat}&lon={location.Lng}&appid={this.configuration["WEATHER_API_KEY"]}&units={this.configuration["Units"]}")));
+                _client.GetAsync($"/data/2.5/weather?lat={location.Lat}&lon={location.Lng}&appid={this.configuration["WEATHER_API_KEY"]}&units={this.configuration["Units"]}")
+            ));
             var contents = await Task.WhenAll(results.Select(res => res.Content.ReadAsStringAsync()));
 
             Dictionary<string, string> content = new Dictionary<string, string>();
