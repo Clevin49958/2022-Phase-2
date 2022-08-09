@@ -1,24 +1,33 @@
-import React from 'react';
-import logo from './logo.svg';
+import axios from 'axios';
+import React, { useState } from 'react';
 import './App.css';
 
+const WEATHER_BASE_URL = "https://api.openweathermap.org/data/2.5/weather?q="
+
 function App() {
+  const [input, setInput] = useState("");
+  const [cityName, setCityName] = useState<string>();
+  const apiKey = process.env.REACT_APP_WEATHER_API_KEY;
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div>
+      <h1>
+        Weather Search
+      </h1>
+      
+      <div>
+        <label>City Name</label><br/>
+        <input type="text" id="city-name" name="city-name" onChange={e => setInput(e.target.value)}/><br/>
+        <button onClick={() => {
+          setCityName(input);
+          console.log(`${WEATHER_BASE_URL}${input}&appid=${apiKey}`);
+          axios.get(`${WEATHER_BASE_URL}${input}&appid=${apiKey}`).then(res => console.log(res));
+        }}>
+        Search
+        </button>
+      </div>
+
+      {cityName}
     </div>
   );
 }
