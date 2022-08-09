@@ -10,8 +10,15 @@ function App() {
   const [searched, setSearched] = useState<boolean>(false);
   const [weather, setWeather] = useState<CurrentResponse | undefined>(undefined);
 
+  // the process.env sometimes die off. 
+  // This ensures we get it once and no longer depend on it.
+  const [apiKey, setApiKey] = useState("");
+  useEffect(() => {
+    setApiKey(process.env.REACT_APP_WEATHER_API_KEY!);
+  }, [])
+
   const search = () => {
-    axios.get(`${WEATHER_BASE_URL}${input}&appid=${process.env.REACT_APP_WEATHER_API_KEY}`).then(res => setWeather(res.data));
+    axios.get(`${WEATHER_BASE_URL}${input}&appid=${apiKey}`).then(res => setWeather(res.data));
     
     setSearched(true);
   };
